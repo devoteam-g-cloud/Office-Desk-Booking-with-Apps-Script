@@ -10,7 +10,7 @@ Below print screen with "BOOK" button to allow booking of remaining slots.
 </p>
 
 ## Direct copy
-You can get you direct copy there : https://script.google.com/home/projects/1o5tqSTLiUv82EuUlbCnoXWuHCO-tQ_Kq4u_IG6OqbXlV_2eq8XhVeYon/edit
+You can get your copy there : https://script.google.com/home/projects/1o5tqSTLiUv82EuUlbCnoXWuHCO-tQ_Kq4u_IG6OqbXlV_2eq8XhVeYon/edit
 
 ## Context
 We made this application in order to manage people at office with the new rules for after Covid. This application has been made in 1 day and has to full fill quickly the need to manage easily time presence and booking for our Office.
