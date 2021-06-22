@@ -1,4 +1,4 @@
-# Office-Desk-Booking-with-Apps-Script
+# Office Desk Booking with Apps Script
 Manage desk booking for your office. Made for the return to office with new Covid rules but can be used for any flex office booking needs.
 
 ## Context
@@ -40,6 +40,7 @@ For each team you define number of people in 'count' and the color. The color mu
 ```
 
 To finish define the scedule.
+Schedule is just an array with the team define above.
 ```javascript
  dayTeam:{
       "monday":['TEAM1','TEAM3','PEOPLE1'],
@@ -50,3 +51,9 @@ To finish define the scedule.
     }
 ```
  
+## Data management
+The script don't use an external database, we use the Property service : PropertiesService.getScriptProperties()
+
+Data is stored as JSON.
+
+We made som etest and we can store 500+ booking which is normally sufficient for the use case of the application. A specific function cleanOldData() is used to clean data older than 2 weeks. We retain oly the 2weeks old data if tracking is needed to know who was at the office in case of Covid needs.
