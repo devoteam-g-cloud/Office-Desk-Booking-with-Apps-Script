@@ -1,0 +1,22 @@
+<style type="text/css">  
+
+.removeme {
+      cursor: pointer;
+}
+
+.toast-success{
+  background-color:#4CAF50
+}
+
+.toast-error{
+  background-color:#F44336
+}
+
+.toast-warning{
+background-color:#ff9800
+}
+
+.img-middle{
+  vertical-align:middle;
+}
+</style>
