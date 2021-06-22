@@ -66,4 +66,8 @@ The script don't use an external database, we use the Property service : Propert
 
 Data is stored as JSON.
 
-We made som etest and we can store 500+ booking which is normally sufficient for the use case of the application. A specific function cleanOldData() is used to clean data older than 2 weeks. We retain oly the 2weeks old data if tracking is needed to know who was at the office in case of Covid needs.
+We made some test and we can store 500+ booking which is normally sufficient for the use case of the application. A specific function cleanOldData() is used to clean data older than 2 weeks. We retain oly the 2 weeks old data if tracking is needed to know who was at the office in case of Covid needs.
+
+## Deploy the web app
+Create a new deployment version and deploy the web app using the credential of the owner and accessible for anyone on the domain.
+
