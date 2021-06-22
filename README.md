@@ -70,4 +70,6 @@ We made some test and we can store 500+ booking which is normally sufficient for
 
 ## Deploy the web app
 Create a new deployment version and deploy the web app using the credential of the owner and accessible for anyone on the domain.
-
+<p align="center">
+  <img src="https://github.com/devoteam-g-cloud/Office-Desk-Booking-with-Apps-Script/blob/main/img/deploy-office-booking.png?raw=true" width="350" title="hover text">
+</p>
