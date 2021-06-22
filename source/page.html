@@ -1,0 +1,208 @@
+
+<html id="entireSite">
+  <head>
+    <base target="_top">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Use a templated HTML printing scriptlet to import common stylesheet -->
+    <?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+  </head>
+  <body class="grey lighten-3">
+  <nav class="top-nav blue nav-custom" style="height: 70px;">
+    <div class="container">
+      <div class="nav-wrapper">
+      <a id="logo-container" class="brand-logo"><img class="img-middle"  height="64px"src="https://raw.githubusercontent.com/devoteam-g-cloud/Office-Desk-Booking-with-Apps-Script/main/devoteam_rgb_gcloud_white.png"> </a>
+    </div>
+    </div>
+  </nav>
+
+<div class="grey-text text-darken-4" id="main">
+<div class="old_container">
+  <div class="row">
+    <div class="col m2  valign-wrapper right-align"><h2><button class="waves-effect waves-light btn" id="prev">prev week</button>
+</h2></div>
+    <div class="col m8 center blue-grey-text lighten-1"><h2>Office Desk Booking</h2></div>
+    <div class="col m2  valign-wrapper left-align"><h2><button class="waves-effect waves-light btn" id="next">next week</button>
+    </h2></div>
+  </div>
+
+  <div class="row" id="">
+     <div class="col l1 m1 s1"></div>
+    <div class="col l2 m2 s2 center-align" ><h5 id = "label-monday">monday</h5></div>
+    <div class="col l2 m2 s2 center-align" ><h5 id = "label-tuesday">tuesday</h5></div>
+    <div class="col l2 m2 s2 center-align" ><h5 id = "label-wednesday">wednesday</h5></div>
+    <div class="col l2 m2 s2 center-align" ><h5 id = "label-thursday">thursday</h5></div>
+    <div class="col l2 m2 s2 center-align" ><h5 id = "label-friday">friday</h5></div>
+    <div class="col l1 m1 s1"></div>
+    </div>
+     <div class="row" id="">
+    <div class="col l1 m1 s1"></div>
+    <div class="col l2 m2 s2 center-align jour" id = "monday"></div>
+    <div class="col l2 m2 s2 center-align jour" id = "tuesday"></div>
+    <div class="col l2 m2 s2 center-align jour" id = "wednesday"></div>
+    <div class="col l2 m2 s2 center-align jour" id = "thursday"></div>
+    <div class="col l2 m2 s2 center-align jour" id = "friday"></div>
+    <div class="col l1 m1 s1"></div>
+    
+  </div><!-- End row -->
+
+</div> <!-- End container -->
+
+</div><!-- End main -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+<script>
+$(function() {
+  $('#prev').hide();
+  $('#prev').click(defaultview)
+   $('#next').click(viewnext)
+   init();
+});
+
+
+
+function init(){
+  console.log('init')
+  defaultview()
+}
+
+function defaultview(){
+  var today = new Date();
+  $('#next').show();
+  $('#prev').hide();
+  getData(today);
+}
+
+function viewnext(){
+  var today = new Date();
+  var nextweek = new Date(today.getTime() + (7*24*60*60*1000))
+  $('#next').hide();
+  $('#prev').show();
+  // displayCopntent(rep,nextweek)
+  getData(nextweek);
+}
+
+function getData(date){
+     $('.jour').each(function (){
+    $(this).html('')
+  })
+  google.script.run.withSuccessHandler(function(rep) { 
+    showStatus('Data retrieved !');
+    displayCopntent(rep,date)
+  }).withFailureHandler( function(msg) {
+    showStatus("error" + msg, 'error');
+ 
+    }).getJauge();
+}
+
+
+
+function displayCopntent(rep,today){
+  var jauge = rep.jauge;
+  var team = rep.team;
+  var dayTeam = rep.dayTeam;
+  var email = rep.email;
+
+  var monday = new Date(today.getTime() - ((today.getDay()-1) *(24*60*60*1000)))
+  var options = { weekday: 'short', day: 'numeric' };
+  $('.removeme').unbind();
+
+  for(var key in jauge){
+    var html = ' <ul class="collection">';
+    var now = new Date(monday.getTime() + (jauge[key].index*24*60*60*1000));
+    var now_id = dateId(now)
+    var quota = jauge[key].max;
+    var teams = dayTeam[key];
+    $('#label-'+key).html(now.toLocaleDateString(navigator.language, options))
+    for(var i = 0; i < teams.length ; i++){
+      var number = team[teams[i]].count;
+      var color = team[teams[i]].color
+      for(var j = 0 ; j < number;j++){
+        html = html + '<li class="collection-item '+color+'">'+teams[i]+'</li>'
+      }
+      quota = quota - number ;
+    }
+   
+    var specific = rep.custom[now_id];
+    if(specific){
+      for(var i = 0 ; i< specific.length ; i++){
+        var spec = specific[i];
+        if(spec.email == email){
+          var item_html = '<li class="collection-item">'+spec.email.split('@')[0]+' '
+            +'<div class="chip red lighten-1 white-text removeme" val_id="'+spec.id+'" val_email="'+spec.email+'">DEL</div></li>';
+        }else{
+          var item_html = '<li class="collection-item">'+spec.email.split('@')[0] +'</li>';
+        }
+        html = html + item_html
+      }
+    }
+   
+    if(quota > 0){
+      for(var i = 0 ; i< quota ; i++){
+        html = html + '<li class="collection-item"><button class="waves-effect waves-light btn bookme blue" val_day="'
+        +key+'" val_id="'+now_id+'" >book</button></li>'
+      }
+    }
+    var html = html + '</ul>'
+    $('#'+key).html(html)
+  }
+  $('.removeme').click(removeItem)
+  $('.bookme').click(bookItem)
+}
+
+function removeItem(){
+  var data = {id:$(this).attr('val_id'),email:$(this).attr('val_email')};
+  this.remove()
+  google.script.run.withSuccessHandler(function(rep,element) { 
+    // defaultview()
+    reloadWeek()
+  }).withFailureHandler( function(msg,element) {
+    showStatus("error" + msg, 'error');
+   element.disabled = false;
+    }).withUserObject(this)
+    .removeDesk(data);
+}
+
+function bookItem(){
+  var data = {day:$(this).attr('val_day'),key:$(this).attr('val_id')};
+  this.disabled = true;
+  google.script.run.withSuccessHandler(function(rep,element) { 
+    reloadWeek()
+  }).withFailureHandler( function(msg,element) {
+    showStatus("error" + msg, 'error');
+   element.disabled = false;
+    }).withUserObject(this)
+    .bookDesk(data);
+}
+
+function reloadWeek(){
+  if($('#prev').is(":hidden")){
+    defaultview() 
+  }else{
+    viewnext()
+  }
+}
+
+/*
+ * UTILS
+ */
+function dateId(d){  return d.getFullYear().toString()+zero(d.getMonth()+1)+zero(d.getDate());}
+function zero(num){ return num < 10 ? '0'+num : num ;}
+
+function showStatus(msg, classId) {
+if(!classId){
+  classId="toast-success";
+  }else{
+    classId = "toast-"+classId
+  }
+  Materialize.toast(msg, 3000, classId) 
+}
+</script>
+
+ </body>
+</html>
