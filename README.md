@@ -4,6 +4,11 @@ Manage desk booking for your office. Made for the return to office with new Covi
   <img src="https://github.com/devoteam-g-cloud/Office-Desk-Booking-with-Apps-Script/blob/main/img/screen_office_booking.png?raw=true" width="350" title="hover text">
 </p>
 
+Below print screen with "BOOK" button to allow booking of remaining slots.
+<p align="center">
+  <img src="https://github.com/devoteam-g-cloud/Office-Desk-Booking-with-Apps-Script/blob/main/img/screen_office_booking2.png?raw=true" width="350" title="hover text">
+</p>
+
 ## Context
 We made this applicaiton in order to manage people at office with the new rules for after Covid. This application has been made in 1 day and as to full fill quickly the need to manage easily time presence and booking for our Office.
 
