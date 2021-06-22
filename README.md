@@ -10,9 +10,9 @@ Below print screen with "BOOK" button to allow booking of remaining slots.
 </p>
 
 ## Context
-We made this applicaiton in order to manage people at office with the new rules for after Covid. This application has been made in 1 day and as to full fill quickly the need to manage easily time presence and booking for our Office.
+We made this application in order to manage people at office with the new rules for after Covid. This application has been made in 1 day and has to full fill quickly the need to manage easily time presence and booking for our Office.
 
-This application is not designed to manage the full Office it is designed to have 1 version per team, floor, service etc... For example we use it one instance for our Paris Office and one for our Lyon Office.
+This application is not designed to manage the full Office it is designed to have 1 version per team, floor, service etc... For example we use one instance for our Paris Office and one for our Lyon Office.
 
 With Office Desk Booking you can manageteam presence by assigning days to some teams and if there is remaining free place, each user can book a place.
 
