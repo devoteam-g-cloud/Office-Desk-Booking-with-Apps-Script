@@ -1,10 +1,15 @@
 # Office Desk Booking with Apps Script
 Manage desk booking for your office. Made for the return to office with new Covid rules but can be used for any flex office booking needs.
+<p align="center">
+  <img src="https://github.com/devoteam-g-cloud/Office-Desk-Booking-with-Apps-Script/blob/main/img/screen_office_booking.png?raw=true" width="350" title="hover text">
+</p>
 
 ## Context
 We made this applicaiton in order to manage people at office with the new rules for after Covid. This application has been made in 1 day and as to full fill quickly the need to manage easily time presence and booking for our Office.
 
 This application is not designed to manage the full Office it is designed to have 1 version per team, floor, service etc... For example we use it one instance for our Paris Office and one for our Lyon Office.
+
+With Office Desk Booking you can manageteam presence by assigning days to some teams and if there is remaining free place, each user can book a place.
 
 ## How it works
 In the file code.gs you have a function getOfficeData() and you can set your Office data.
